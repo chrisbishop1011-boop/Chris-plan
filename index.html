@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Money">
+<meta name="theme-color" content="#0A0A0A">
+<title>Chris — Financial Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0A0A0A; --surface: #111; --border: #1E1E1E;
+    --text: #F0EDE6; --muted: #555; --dim: #2A2A2A;
+    --gold: #C8A96E; --teal: #7EB8A4; --coral: #E07B5A;
+    --green: #5EBF8A; --blue: #6A9FD4; --red: #E05A5A;
+  }
+  html { background: var(--bg); }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding-bottom: 85px; }
+
+/* HEADER */
+.header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.97); backdrop-filter: blur(16px); border-bottom: 1px solid var(–border); padding: 14px 20px 12px; display: flex; justify-content: space-between; align-items: flex-end; }
+.header-left .label { font-family: ‘DM Mono’, monospace; font-size: 9px; letter-spacing: 0.2em; color: var(–muted); text-transform: uppercase; margin-bottom: 2px; }
+.header-title { font-family: ‘DM Serif Display’, serif; font-size: 20px; }
+.header-right { text-align: right; }
+.days-num { font-family: ‘DM Serif Display’, serif; font-size: 26px; color: var(–gold); line-height: 1; }
+.days-label { font-size: 9px; color: var(–muted); font-family: ‘DM Mono’, monospace; letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* CONTENT */
+.content { padding: 16px 20px; }
+
+/* CARDS */
+.card { background: var(–surface); border: 1px solid var(–border); border-radius: 14px; padding: 16px 18px; margin-bottom: 12px; }
+.card-label { font-family: ‘DM Mono’, monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(–muted); margin-bottom: 12px; }
+
+/* SECTIONS */
+section { display: none; }
+section.active { display: block; }
+
+/* THREE NUMBERS */
+.three-nums { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+.num-box { background: var(–surface); border: 1px solid var(–border); border-radius: 12px; padding: 14px 8px; text-align: center; }
+.num-val { font-family: ‘DM Serif Display’, serif; font-size: 22px; color: var(–gold); line-height: 1; margin-bottom: 4px; }
+.num-label { font-size: 10px; color: var(–muted); font-family: ‘DM Mono’, monospace; line-height: 1.3; }
+
+/* CHECKLIST */
+.check-item { display: flex; gap: 12px; padding: 13px 14px; border-radius: 10px; margin-bottom: 6px; cursor: pointer; align-items: flex-start; transition: opacity 0.2s; -webkit-tap-highlight-color: transparent; }
+.check-item.done { opacity: 0.4; }
+.check-item.done .check-title { text-decoration: line-through; }
+.check-box { width: 22px; height: 22px; border-radius: 6px; border: 1.5px solid var(–dim); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s; margin-top: 1px; }
+.check-box.checked { border-color: var(–item-color); background: var(–item-color); }
+.check-box.checked::after { content: ‘✓’; font-size: 13px; color: #000; font-weight: 700; }
+.check-body { flex: 1; }
+.check-title { font-size: 14px; font-weight: 500; margin-bottom: 3px; color: var(–text); line-height: 1.4; }
+.check-meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.check-date { font-family: ‘DM Mono’, monospace; font-size: 10px; padding: 2px 8px; border-radius: 6px; }
+.check-urgent { font-size: 10px; color: var(–coral); font-family: ‘DM Mono’, monospace; }
+.date-group { margin-bottom: 6px; }
+.date-header { font-family: ‘DM Mono’, monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; padding: 8px 14px 6px; color: var(–muted); }
+
+/* BUDGET */
+.budget-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.budget-col { background: var(–surface); border: 1px solid var(–border); border-radius: 12px; overflow: hidden; }
+.budget-col-header { padding: 10px 14px 8px; border-bottom: 1px solid var(–border); }
+.budget-col-title { font-family: ‘DM Mono’, monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 2px; }
+.budget-col-sub { font-size: 10px; color: var(–muted); }
+.budget-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 14px; border-bottom: 1px solid var(–border); }
+.budget-row:last-child { border-bottom: none; }
+.budget-row.total { background: #0D0D0D; }
+.budget-name { font-size: 11px; color: var(–muted); }
+.budget-val { font-family: ‘DM Mono’, monospace; font-size: 11px; font-weight: 600; }
+.budget-row.total .budget-name { color: var(–text); font-weight: 600; font-size: 12px; }
+.budget-row.total .budget-val { font-size: 13px; }
+
+/* WEALTH */
+.wealth-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(–border); }
+.wealth-item:last-child { border-bottom: none; }
+.wealth-label { font-size: 13px; color: #AAA; }
+.wealth-val { font-family: ‘DM Serif Display’, serif; font-size: 18px; }
+.wealth-total { background: #0D0D0D; border-radius: 10px; padding: 16px; margin-top: 8px; text-align: center; }
+.wealth-total-val { font-family: ‘DM Serif Display’, serif; font-size: 28px; color: var(–gold); margin-bottom: 4px; }
+.wealth-total-label { font-size: 11px; color: var(–muted); font-family: ‘DM Mono’, monospace; letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* RULES */
+.rule-item { display: flex; gap: 14px; padding: 14px; background: #0D0D0D; border-radius: 10px; margin-bottom: 8px; border-left: 3px solid var(–gold); }
+.rule-body {}
+.rule-title { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+.rule-sub { font-size: 12px; color: var(–muted); line-height: 1.5; font-style: italic; }
+
+/* PROGRESS */
+.progress-summary { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.prog-box { background: var(–surface); border: 1px solid var(–border); border-radius: 12px; padding: 14px; text-align: center; }
+.prog-val { font-family: ‘DM Serif Display’, serif; font-size: 28px; line-height: 1; margin-bottom: 3px; }
+.prog-label { font-family: ‘DM Mono’, monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(–muted); }
+
+.timeline-item { display: flex; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(–border); align-items: flex-start; }
+.timeline-item:last-child { border-bottom: none; }
+.timeline-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+.timeline-date { font-family: ‘DM Mono’, monospace; font-size: 10px; color: var(–gold); min-width: 70px; padding-top: 2px; text-transform: uppercase; letter-spacing: 0.08em; }
+.timeline-text { font-size: 13px; color: #CCC; line-height: 1.5; }
+
+/* NAV */
+.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(10,10,10,0.97); backdrop-filter: blur(16px); border-top: 1px solid var(–border); display: flex; padding: 6px 0 max(6px, env(safe-area-inset-bottom)); }
+.nav-btn { flex: 1; padding: 8px 4px; border: none; background: transparent; color: var(–muted); font-size: 9px; font-family: ‘DM Mono’, monospace; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 3px; transition: color 0.2s; -webkit-tap-highlight-color: transparent; letter-spacing: 0.08em; text-transform: uppercase; }
+.nav-btn.active { color: var(–gold); }
+.nav-btn svg { width: 20px; height: 20px; }
+
+.highlight { background: #0F0F0F; border-left: 3px solid var(–gold); border-radius: 0 10px 10px 0; padding: 14px 16px; margin-bottom: 12px; }
+.highlight-label { font-family: ‘DM Mono’, monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(–gold); margin-bottom: 6px; }
+.highlight-text { font-size: 13px; color: #CCC; line-height: 1.6; }
+
+.pension-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(–border); }
+.pension-row:last-child { border-bottom: none; }
+.pension-label { font-size: 13px; color: #AAA; }
+.pension-val { font-family: ‘DM Mono’, monospace; font-size: 13px; font-weight: 600; }
+</style>
+
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <div class="label">Chris · Financial Plan</div>
+    <div class="header-title">May → August</div>
+  </div>
+  <div class="header-right">
+    <div class="days-num" id="daysLeft">—</div>
+    <div class="days-label">days to completion</div>
+  </div>
+</div>
+
+<!-- ACTIONS -->
+
+<section class="active" id="actionsSection">
+  <div class="content">
+    <div class="three-nums">
+      <div class="num-box"><div class="num-val">£929</div><div class="num-label">clear 21st May</div></div>
+      <div class="num-box"><div class="num-val">22nd</div><div class="num-label">standing orders</div></div>
+      <div class="num-box"><div class="num-val">Aug</div><div class="num-label">completion</div></div>
+    </div>
+
+```
+<div id="checkProgress" class="card" style="margin-bottom:12px">
+  <div class="card-label">Progress</div>
+  <div id="progressBar" style="height:6px;background:var(--dim);border-radius:3px;overflow:hidden;margin-bottom:8px">
+    <div id="progressFill" style="height:100%;background:var(--gold);border-radius:3px;transition:width 0.4s ease;width:0%"></div>
+  </div>
+  <div id="progressText" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)">0 of 18 actions complete</div>
+</div>
+
+<div id="actionsList"></div>
+```
+
+  </div>
+</section>
+
+<!-- BUDGET -->
+
+<section id="budgetSection">
+  <div class="content">
+    <div class="budget-cols">
+      <div class="budget-col">
+        <div class="budget-col-header">
+          <div class="budget-col-title" style="color:var(--gold)">Now</div>
+          <div class="budget-col-sub">Living at home</div>
+        </div>
+        <div class="budget-row"><span class="budget-name">Net pay</span><span class="budget-val" style="color:var(--green)">£5,154</span></div>
+        <div class="budget-row"><span class="budget-name">Parents</span><span class="budget-val">−£1,000</span></div>
+        <div class="budget-row"><span class="budget-name">Coventry</span><span class="budget-val">−£1,500</span></div>
+        <div class="budget-row"><span class="budget-name">Vanguard</span><span class="budget-val" style="color:var(--teal)">−£500</span></div>
+        <div class="budget-row"><span class="budget-name">Marcus</span><span class="budget-val" style="color:var(--teal)">−£500</span></div>
+        <div class="budget-row"><span class="budget-name">Travel</span><span class="budget-val">−£280</span></div>
+        <div class="budget-row"><span class="budget-name">Groceries</span><span class="budget-val">−£50</span></div>
+        <div class="budget-row"><span class="budget-name">Clothes</span><span class="budget-val">−£75</span></div>
+        <div class="budget-row"><span class="budget-name">Dining/dating</span><span class="budget-val">−£600</span></div>
+        <div class="budget-row"><span class="budget-name">Subs/misc</span><span class="budget-val">−£120</span></div>
+        <div class="budget-row total"><span class="budget-name">Float</span><span class="budget-val" style="color:var(--gold)">£529</span></div>
+      </div>
+      <div class="budget-col">
+        <div class="budget-col-header">
+          <div class="budget-col-title" style="color:var(--teal)">Post-Move</div>
+          <div class="budget-col-sub">SE5 · Zone 2</div>
+        </div>
+        <div class="budget-row"><span class="budget-name">Net pay</span><span class="budget-val" style="color:var(--green)">£5,154</span></div>
+        <div class="budget-row"><span class="budget-name">Mortgage</span><span class="budget-val" style="color:var(--coral)">−£2,080</span></div>
+        <div class="budget-row"><span class="budget-name">Council tax</span><span class="budget-val">−£133</span></div>
+        <div class="budget-row"><span class="budget-name">Bills</span><span class="budget-val">−£200</span></div>
+        <div class="budget-row"><span class="budget-name">Broadband</span><span class="budget-val">−£35</span></div>
+        <div class="budget-row"><span class="budget-name">Insurance</span><span class="budget-val">−£50</span></div>
+        <div class="budget-row"><span class="budget-name">Travel</span><span class="budget-val">−£160</span></div>
+        <div class="budget-row"><span class="budget-name">Parents</span><span class="budget-val">−£500</span></div>
+        <div class="budget-row"><span class="budget-name">Groceries</span><span class="budget-val">−£200</span></div>
+        <div class="budget-row"><span class="budget-name">Clothes</span><span class="budget-val">−£75</span></div>
+        <div class="budget-row"><span class="budget-name">Dining/dating</span><span class="budget-val">−£500</span></div>
+        <div class="budget-row"><span class="budget-name">Subs/misc</span><span class="budget-val">−£120</span></div>
+        <div class="budget-row"><span class="budget-name">Vanguard ISA</span><span class="budget-val" style="color:var(--teal)">−£800</span></div>
+        <div class="budget-row"><span class="budget-name">Marcus</span><span class="budget-val" style="color:var(--teal)">−£386</span></div>
+        <div class="budget-row total"><span class="budget-name">Float</span><span class="budget-val" style="color:var(--gold)">£155</span></div>
+      </div>
+    </div>
+
+```
+<div class="highlight">
+  <div class="highlight-label">The Float Rule</div>
+  <div class="highlight-text">£529 now and £155 post-move is not spending money. It sits in your current account as a buffer. Always.</div>
+</div>
+
+<div class="card">
+  <div class="card-label">Bonus Deployment — July (~£15k net)</div>
+  <div class="wealth-item"><span class="wealth-label">Completion cost buffer → Coventry</span><span class="wealth-val" style="color:var(--gold)">£10,000</span></div>
+  <div class="wealth-item"><span class="wealth-label">Vanguard ISA top-up</span><span class="wealth-val" style="color:var(--teal)">£5,000</span></div>
+</div>
+
+<div class="card">
+  <div class="card-label">Bonus Deployment — January (~£30k net)</div>
+  <div class="wealth-item"><span class="wealth-label">Top up emergency fund to £9k</span><span class="wealth-val" style="color:var(--blue)">~£5,500</span></div>
+  <div class="wealth-item"><span class="wealth-label">Max ISA before April 5th</span><span class="wealth-val" style="color:var(--teal)">£20,000</span></div>
+  <div class="wealth-item"><span class="wealth-label">Mortgage overpayment</span><span class="wealth-val" style="color:var(--gold)">£5,000</span></div>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- WEALTH -->
+
+<section id="wealthSection">
+  <div class="content">
+
+```
+<div class="card" style="border-color:var(--gold)30">
+  <div class="card-label" style="color:var(--gold)">Your Pension — Already Working</div>
+  <div class="pension-row"><span class="pension-label">Your contribution (3% JMEPS Gold)</span><span class="pension-val" style="color:var(--text)">£275/mo</span></div>
+  <div class="pension-row"><span class="pension-label">JM Credit Account (17.5%)</span><span class="pension-val" style="color:var(--gold)">£795/mo</span></div>
+  <div class="pension-row"><span class="pension-label">JM Investment Account (15%)</span><span class="pension-val" style="color:var(--gold)">£694/mo</span></div>
+  <div class="pension-row"><span class="pension-label">ShareMatch (yours + JM 1:1)</span><span class="pension-val" style="color:var(--teal)">£250/mo</span></div>
+  <div class="pension-row"><span class="pension-label" style="color:var(--text);font-weight:600">Total pension building</span><span class="pension-val" style="color:var(--gold);font-size:16px">£2,014/mo</span></div>
+</div>
+
+<div class="highlight" style="border-color:var(--teal)">
+  <div class="highlight-label" style="color:var(--teal)">October — Switch to Platinum</div>
+  <div class="highlight-text">Costs you £165/month after tax relief. JM gives you £212/month extra. Net gain £47/month + compounding forever. Set the reminder now.</div>
+</div>
+
+<div class="card">
+  <div class="card-label">30-Year Wealth Projection</div>
+  <div class="wealth-item"><span class="wealth-label">ISA (£1,186/mo · 30yrs · 8%)</span><span class="wealth-val" style="color:var(--teal)">£1,710,000</span></div>
+  <div class="wealth-item"><span class="wealth-label">Pension at 65</span><span class="wealth-val" style="color:var(--gold)">£1,000,000–£1,300,000</span></div>
+  <div class="wealth-item"><span class="wealth-label">House equity</span><span class="wealth-val" style="color:var(--blue)">£350,000+</span></div>
+  <div class="wealth-total">
+    <div class="wealth-total-val">~£3,060,000–£3,360,000</div>
+    <div class="wealth-total-label">Total wealth at 65</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-label">Timeline</div>
+  <div class="timeline-item">
+    <div class="timeline-date">May 21</div>
+    <div class="timeline-text">£929 cleared. 3 standing orders live. HR email sent.</div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">June</div>
+    <div class="timeline-text">All SOs executing. Buildings insurance quoted. Solicitor chased.</div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">July</div>
+    <div class="timeline-text">Bonus lands. £10k → Coventry. £5k → ISA. Nothing else.</div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">August</div>
+    <div class="timeline-text">Completion. Vanguard → £1,186/mo. Parents → £500. Income protection sorted.</div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">October</div>
+    <div class="timeline-text">Switch JMEPS Gold → Platinum. Non-negotiable.</div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">January</div>
+    <div class="timeline-text">Bonus: £9k emergency fund. £20k ISA before April 5th. £5k mortgage overpayment.</div>
+  </div>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- RULES -->
+
+<section id="rulesSection">
+  <div class="content">
+    <div class="card" style="margin-bottom:12px">
+      <div class="card-label">Golden Rules</div>
+      <div class="rule-item">
+        <div class="rule-body">
+          <div class="rule-title">Every pay rise: 50/50.</div>
+          <div class="rule-sub">Half to lifestyle. Half to investments. Non-negotiable. Always.</div>
+        </div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-body">
+          <div class="rule-title">Never miss twice.</div>
+          <div class="rule-sub">One missed investment is a delay. Two is a habit forming.</div>
+        </div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-body">
+          <div class="rule-title">The float is not spending money.</div>
+          <div class="rule-sub">£529 now. £155 post-move. It sits. Always. Touch it only for genuine emergencies.</div>
+        </div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-body">
+          <div class="rule-title">ISA before everything else.</div>
+          <div class="rule-sub">£20,000 annual allowance. Use it every year before April 5th. Tax-free compounding forever.</div>
+        </div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-body">
+          <div class="rule-title">October. Platinum. No excuses.</div>
+          <div class="rule-sub">Flexi-Elements window. Switch JMEPS Gold to Platinum. Free money on the table until you do.</div>
+        </div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-body">
+          <div class="rule-title">Never sell in a downturn.</div>
+          <div class="rule-sub">Markets fall 20–40% sometimes. Keep buying. The people who panic-sell lock in losses and miss the recovery.</div>
+        </div>
+      </div>
+    </div>
+
+```
+<div class="card">
+  <div class="card-label">Your Assets — Current</div>
+  <div class="wealth-item"><span class="wealth-label">Coventry Cash ISA</span><span class="wealth-val" style="color:var(--gold)">£50,000</span></div>
+  <div class="wealth-item"><span class="wealth-label">Vanguard ISA (LS100%)</span><span class="wealth-val" style="color:var(--teal)">£9,000</span></div>
+  <div class="wealth-item"><span class="wealth-label">Freetrade (fun money)</span><span class="wealth-val" style="color:var(--muted)">£2,400</span></div>
+  <div class="wealth-item"><span class="wealth-label">Marcus (emergency fund)</span><span class="wealth-val" style="color:var(--blue)">Building</span></div>
+  <div class="wealth-item" style="border-bottom:none"><span class="wealth-label">JM Pension (JMEPS Gold)</span><span class="wealth-val" style="color:var(--gold)">£2,014/mo</span></div>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- NAV -->
+
+<nav class="bottom-nav">
+  <button class="nav-btn active" id="navActions" onclick="showSection('actions')">
+    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+    Actions
+  </button>
+  <button class="nav-btn" id="navBudget" onclick="showSection('budget')">
+    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75"/></svg>
+    Budget
+  </button>
+  <button class="nav-btn" id="navWealth" onclick="showSection('wealth')">
+    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"/></svg>
+    Wealth
+  </button>
+  <button class="nav-btn" id="navRules" onclick="showSection('rules')">
+    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5"/></svg>
+    Rules
+  </button>
+</nav>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+const ACTIONS = [
+  // 21st May
+  { id:'a1', date:'21 MAY — PAYDAY', title:'Pay £929 credit card in full', sub:'First thing. Before anything else.', color:'#E07B5A', urgent:true },
+  { id:'a2', date:'21 MAY — PAYDAY', title:'Standing order: £1,500/mo to Coventry', sub:'Date: 22nd of every month.', color:'#E07B5A', urgent:true },
+  { id:'a3', date:'21 MAY — PAYDAY', title:'Standing order: £500/mo to Vanguard ISA', sub:'Date: 22nd of every month.', color:'#E07B5A', urgent:true },
+  { id:'a4', date:'21 MAY — PAYDAY', title:'Standing order: £500/mo to Marcus', sub:'Date: 22nd of every month.', color:'#E07B5A', urgent:true },
+  { id:'a5', date:'21 MAY — PAYDAY', title:'Email JM HR re bonus pension sacrifice', sub:'Ask: can I sacrifice July/Jan bonus into JMEPS before payment?', color:'#E07B5A', urgent:true },
+  // By May 31
+  { id:'b1', date:'BY 31ST MAY', title:'Confirm exact mortgage rate with broker', sub:'Update budget if different from 4.5%.', color:'#C8A96E', urgent:false },
+  { id:'b2', date:'BY 31ST MAY', title:'Get SE5 service charge figure', sub:'Ask estate agent or seller\'s solicitor.', color:'#C8A96E', urgent:false },
+  { id:'b3', date:'BY 31ST MAY', title:'Confirm August completion on track', sub:'Contact solicitor for timeline update.', color:'#C8A96E', urgent:false },
+  { id:'b4', date:'BY 31ST MAY', title:'Verify Vanguard shows LifeStrategy 100%', sub:'Log in and confirm fund switch saved correctly.', color:'#C8A96E', urgent:false },
+  // June
+  { id:'c1', date:'JUNE', title:'Confirm all 3 standing orders executed', sub:'Coventry £1,500 · Vanguard £500 · Marcus £500', color:'#7EB8A4', urgent:false },
+  { id:'c2', date:'JUNE', title:'Credit card balance: £0', sub:'If not zero, fix immediately.', color:'#7EB8A4', urgent:false },
+  { id:'c3', date:'JUNE', title:'Get buildings insurance quotes', sub:'Required at completion. Budget £150–200/year.', color:'#7EB8A4', urgent:false },
+  { id:'c4', date:'JUNE', title:'Chase solicitor — exchange of contracts', sub:'August is 8 weeks away. Push for timeline.', color:'#7EB8A4', urgent:false },
+  // July
+  { id:'d1', date:'JULY — BONUS', title:'Bonus lands: £10k → Coventry', sub:'Same day bonus hits. No delay.', color:'#5EBF8A', urgent:true },
+  { id:'d2', date:'JULY — BONUS', title:'Bonus lands: £5k → Vanguard ISA', sub:'Same day. Then nothing else changes.', color:'#5EBF8A', urgent:true },
+  { id:'d3', date:'JULY — BONUS', title:'Finalise buildings insurance', sub:'Policy must be ready for completion.', color:'#5EBF8A', urgent:false },
+  // August
+  { id:'e1', date:'AUGUST — COMPLETION', title:'Switch Vanguard: £500 → £1,186/month', sub:'Same day as completion. Non-negotiable.', color:'#C8A96E', urgent:true },
+  { id:'e2', date:'AUGUST — COMPLETION', title:'Switch parents: £1,000 → £500/month', sub:'Same day as completion.', color:'#C8A96E', urgent:true },
+  { id:'e3', date:'AUGUST — COMPLETION', title:'Sort income protection insurance', sub:'Same week. £50–80/month. You now have a mortgage.', color:'#C8A96E', urgent:true },
+  { id:'e4', date:'AUGUST — COMPLETION', title:'Set October reminder: JMEPS Platinum', sub:'Flexi-Elements window. Switch Gold → Platinum.', color:'#C8A96E', urgent:true },
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+function load(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch(e){return d;}}
+function save(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+
+let ticks = load('fp_ticks', {});
+
+// ── DAYS COUNTER ──────────────────────────────────────────────────────────────
+function updateDays(){
+  const target = new Date('2026-08-01');
+  const now = new Date();
+  const diff = Math.ceil((target - now) / (1000*60*60*24));
+  document.getElementById('daysLeft').textContent = diff > 0 ? diff : '0';
+}
+
+// ── ACTIONS ───────────────────────────────────────────────────────────────────
+function toggleTick(id){
+  ticks[id] = !ticks[id];
+  save('fp_ticks', ticks);
+  renderActions();
+}
+
+function renderActions(){
+  const done = Object.values(ticks).filter(Boolean).length;
+  const total = ACTIONS.length;
+  const pct = Math.round((done/total)*100);
+
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${done} of ${total} actions complete`;
+
+  // Group by date
+  const groups = {};
+  ACTIONS.forEach(a => {
+    if(!groups[a.date]) groups[a.date] = [];
+    groups[a.date].push(a);
+  });
+
+  // Sort: undone first within each group, done groups at end
+  const dateOrder = ['21 MAY — PAYDAY','BY 31ST MAY','JUNE','JULY — BONUS','AUGUST — COMPLETION'];
+
+  let html = '';
+  dateOrder.forEach(date => {
+    const items = groups[date] || [];
+    const allDone = items.every(a => ticks[a.id]);
+    html += `<div class="date-group">
+      <div class="date-header" style="color:${allDone ? 'var(--muted)' : items[0].color}">${date}</div>`;
+    items.forEach(a => {
+      const checked = !!ticks[a.id];
+      html += `
+        <div class="check-item ${checked?'done':''}" style="--item-color:${a.color};background:${checked?'#0D0D0D':'#111'}" onclick="toggleTick('${a.id}')">
+          <div class="check-box ${checked?'checked':''}" style="${checked?'background:'+a.color+';border-color:'+a.color:'border-color:'+a.color+'60'}">
+            ${checked?'<span style="font-size:13px;color:#000;font-weight:700">✓</span>':''}
+          </div>
+          <div class="check-body">
+            <div class="check-title">${a.title}</div>
+            <div class="check-meta">
+              ${a.urgent ? '<span class="check-urgent">▶ URGENT</span>' : ''}
+              <span style="font-size:11px;color:var(--muted);font-style:italic">${a.sub}</span>
+            </div>
+          </div>
+        </div>`;
+    });
+    html += '</div>';
+  });
+
+  document.getElementById('actionsList').innerHTML = html;
+}
+
+// ── NAV ───────────────────────────────────────────────────────────────────────
+function showSection(s){
+  ['actions','budget','wealth','rules'].forEach(sec => {
+    document.getElementById(sec+'Section').classList.remove('active');
+    document.getElementById('nav'+sec.charAt(0).toUpperCase()+sec.slice(1)).classList.remove('active');
+  });
+  document.getElementById(s+'Section').classList.add('active');
+  document.getElementById('nav'+s.charAt(0).toUpperCase()+s.slice(1)).classList.add('active');
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+updateDays();
+renderActions();
+</script>
+
+</body>
+</html>
