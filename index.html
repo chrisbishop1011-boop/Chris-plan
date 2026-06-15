@@ -29,39 +29,49 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
 .days-label { font-size: 9px; color: var(--muted); font-family: 'DM Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase; }
 
 .content { padding: 16px 20px; }
-
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; margin-bottom: 12px; }
 .card-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
-
 section { display: none; }
 section.active { display: block; }
+
+/* EDIT PANEL */
+.edit-panel { background: #0D0D0D; border: 1px solid var(--gold)30; border-radius: 14px; padding: 16px 18px; margin-bottom: 12px; }
+.edit-panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
+.edit-toggle { font-size: 10px; color: var(--muted); cursor: pointer; padding: 3px 8px; border: 1px solid var(--border); border-radius: 6px; background: transparent; color: var(--muted); font-family: 'DM Mono', monospace; letter-spacing: 0.1em; }
+.edit-fields { display: none; gap: 10px; flex-direction: column; }
+.edit-fields.open { display: flex; }
+.edit-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.edit-row-label { font-size: 12px; color: #AAA; flex: 1; }
+.edit-input-wrap { display: flex; align-items: center; gap: 4px; }
+.edit-prefix { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--muted); }
+.edit-input { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 7px 10px; font-family: 'DM Mono', monospace; font-size: 13px; color: var(--text); width: 110px; text-align: right; outline: none; -webkit-appearance: none; }
+.edit-input:focus { border-color: var(--gold)60; }
+.edit-save { width: 100%; margin-top: 6px; padding: 11px; background: var(--gold)15; border: 1px solid var(--gold)40; border-radius: 10px; color: var(--gold); font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; }
+.edit-save:active { background: var(--gold)25; }
+.edit-updated { font-size: 10px; color: var(--muted); text-align: center; margin-top: 6px; font-family: 'DM Mono', monospace; min-height: 14px; }
 
 /* DEBT METER */
 .debt-meter { background: var(--surface); border: 1px solid var(--coral)40; border-radius: 14px; padding: 16px 18px; margin-bottom: 12px; }
 .debt-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
-.debt-amount { font-family: 'DM Serif Display', serif; font-size: 32px; color: var(--coral); line-height: 1; }
+.debt-amount { font-family: 'DM Serif Display', serif; font-size: 36px; color: var(--coral); line-height: 1; }
 .debt-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--coral); margin-bottom: 3px; }
-.debt-interest { font-size: 11px; color: var(--muted); }
-.debt-bar-wrap { height: 6px; background: var(--dim); border-radius: 3px; overflow: hidden; margin-bottom: 8px; }
+.debt-interest { font-size: 11px; color: var(--muted); margin-top: 4px; }
+.debt-bar-wrap { height: 6px; background: var(--dim); border-radius: 3px; overflow: hidden; margin-bottom: 10px; }
 .debt-bar-fill { height: 100%; background: var(--coral); border-radius: 3px; transition: width 0.6s ease; }
-.debt-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+.debt-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 2px; }
 .debt-card-box { background: #0D0D0D; border-radius: 10px; padding: 12px; }
 .debt-card-name { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
-.debt-card-val { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--coral); }
+.debt-card-val { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--coral); }
 .debt-card-sub { font-size: 10px; color: var(--muted); margin-top: 2px; }
+.debt-cleared { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--green); }
 
 /* COMPLETION METER */
 .completion-meter { background: var(--surface); border: 1px solid var(--gold)40; border-radius: 14px; padding: 16px 18px; margin-bottom: 12px; }
-.completion-top { display: flex; justify-content: space-between; margin-bottom: 10px; }
+.completion-top { display: flex; justify-content: space-between; margin-bottom: 10px; align-items: flex-start; }
 .completion-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
-.completion-pct { font-family: 'DM Serif Display', serif; font-size: 24px; color: var(--gold); }
+.completion-pct { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--gold); line-height: 1; }
 .completion-bar-wrap { height: 6px; background: var(--dim); border-radius: 3px; overflow: hidden; margin-bottom: 10px; }
-.completion-bar-fill { height: 100%; background: linear-gradient(90deg, var(--amber), var(--gold)); border-radius: 3px; }
-.completion-rows { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-.completion-row { display: flex; justify-content: space-between; font-size: 11px; padding: 6px 0; border-bottom: 1px solid var(--border); }
-.completion-row:last-child { border-bottom: none; }
-.completion-row span:first-child { color: var(--muted); }
-.completion-row span:last-child { font-family: 'DM Mono', monospace; font-weight: 600; }
+.completion-bar-fill { height: 100%; background: linear-gradient(90deg, var(--amber), var(--gold)); border-radius: 3px; transition: width 0.6s ease; }
 
 /* DAILY BUDGET */
 .daily-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
@@ -69,25 +79,6 @@ section.active { display: block; }
 .daily-box-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
 .daily-box-val { font-family: 'DM Serif Display', serif; font-size: 26px; line-height: 1; margin-bottom: 3px; }
 .daily-box-sub { font-size: 10px; color: var(--muted); line-height: 1.4; }
-
-/* ACTIONS */
-.check-item { display: flex; gap: 12px; padding: 13px 14px; border-radius: 10px; margin-bottom: 6px; cursor: pointer; align-items: flex-start; transition: opacity 0.2s; -webkit-tap-highlight-color: transparent; }
-.check-item.done { opacity: 0.4; }
-.check-item.done .check-title { text-decoration: line-through; }
-.check-box { width: 22px; height: 22px; border-radius: 6px; border: 1.5px solid var(--dim); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s; margin-top: 1px; }
-.check-body { flex: 1; }
-.check-title { font-size: 14px; font-weight: 500; margin-bottom: 3px; color: var(--text); line-height: 1.4; }
-.check-meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-.check-urgent { font-size: 10px; color: var(--coral); font-family: 'DM Mono', monospace; }
-.date-group { margin-bottom: 6px; }
-.date-header { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; padding: 8px 14px 6px; color: var(--muted); }
-
-/* TIMELINE */
-.timeline-item { display: flex; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
-.timeline-item:last-child { border-bottom: none; }
-.timeline-date { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--gold); min-width: 80px; padding-top: 2px; text-transform: uppercase; letter-spacing: 0.08em; flex-shrink: 0; }
-.timeline-text { font-size: 13px; color: #CCC; line-height: 1.6; }
-.timeline-amount { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--teal); margin-top: 3px; }
 
 /* DAY BY DAY */
 .day-entry { padding: 12px 14px; border-radius: 10px; margin-bottom: 6px; background: #0D0D0D; border-left: 3px solid var(--border); }
@@ -99,7 +90,7 @@ section.active { display: block; }
 .day-date { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3px; }
 .day-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 2px; line-height: 1.4; }
 .day-sub { font-size: 11px; color: var(--muted); line-height: 1.5; }
-.day-balance { font-family: 'DM Mono', monospace; font-size: 12px; margin-top: 6px; }
+.day-balance { font-family: 'DM Mono', monospace; font-size: 11px; margin-top: 6px; color: var(--muted); }
 
 /* BUDGET */
 .budget-phase { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 12px; }
@@ -130,31 +121,21 @@ section.active { display: block; }
 .highlight.red .highlight-label { color: var(--coral); }
 
 /* RULES */
-.rule-item { display: flex; gap: 14px; padding: 14px; background: #0D0D0D; border-radius: 10px; margin-bottom: 8px; border-left: 3px solid var(--gold); }
+.rule-item { padding: 14px; background: #0D0D0D; border-radius: 10px; margin-bottom: 8px; border-left: 3px solid var(--gold); }
 .rule-title { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
 .rule-sub { font-size: 12px; color: var(--muted); line-height: 1.5; font-style: italic; }
 
-/* PROGRESS */
-#checkProgress { margin-bottom: 12px; }
-
-/* NAV */
-.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(10,10,10,0.97); backdrop-filter: blur(16px); border-top: 1px solid var(--border); display: flex; padding: 6px 0 max(6px, env(safe-area-inset-bottom)); }
-.nav-btn { flex: 1; padding: 8px 4px; border: none; background: transparent; color: var(--muted); font-size: 8px; font-family: 'DM Mono', monospace; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 3px; transition: color 0.2s; -webkit-tap-highlight-color: transparent; letter-spacing: 0.08em; text-transform: uppercase; }
-.nav-btn.active { color: var(--gold); }
-.nav-btn svg { width: 20px; height: 20px; }
-
+/* PENSION */
 .pension-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); }
 .pension-row:last-child { border-bottom: none; }
 .pension-label { font-size: 13px; color: #AAA; }
 .pension-val { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 600; }
 
-.tag { display: inline-block; font-family: 'DM Mono', monospace; font-size: 9px; padding: 2px 7px; border-radius: 4px; letter-spacing: 0.1em; text-transform: uppercase; }
-.tag-red { background: var(--coral)20; color: var(--coral); }
-.tag-gold { background: var(--gold)20; color: var(--gold); }
-.tag-green { background: var(--green)20; color: var(--green); }
-.tag-teal { background: var(--teal)20; color: var(--teal); }
-
-.month-header { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; padding: 10px 0 6px; color: var(--muted); border-bottom: 1px solid var(--border); margin-bottom: 8px; }
+/* NAV */
+.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(10,10,10,0.97); backdrop-filter: blur(16px); border-top: 1px solid var(--border); display: flex; padding: 6px 0 max(6px, env(safe-area-inset-bottom)); }
+.nav-btn { flex: 1; padding: 8px 4px; border: none; background: transparent; color: var(--muted); font-size: 8px; font-family: 'DM Mono', monospace; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 3px; transition: color 0.2s; -webkit-tap-highlight-color: transparent; letter-spacing: 0.06em; text-transform: uppercase; }
+.nav-btn.active { color: var(--gold); }
+.nav-btn svg { width: 20px; height: 20px; }
 </style>
 </head>
 <body>
@@ -174,14 +155,41 @@ section.active { display: block; }
 <section class="active" id="overviewSection">
   <div class="content">
 
+    <!-- EDIT PANEL -->
+    <div class="edit-panel">
+      <div class="edit-panel-label">
+        Balances
+        <button class="edit-toggle" onclick="toggleEdit()">Update</button>
+      </div>
+      <div class="edit-fields" id="editFields">
+        <div class="edit-row">
+          <span class="edit-row-label">Amex Gold</span>
+          <div class="edit-input-wrap"><span class="edit-prefix">£</span><input class="edit-input" type="number" id="inputGold" inputmode="numeric"></div>
+        </div>
+        <div class="edit-row">
+          <span class="edit-row-label">Amex Platinum</span>
+          <div class="edit-input-wrap"><span class="edit-prefix">£</span><input class="edit-input" type="number" id="inputPlat" inputmode="numeric"></div>
+        </div>
+        <div class="edit-row">
+          <span class="edit-row-label">Coventry ISA</span>
+          <div class="edit-input-wrap"><span class="edit-prefix">£</span><input class="edit-input" type="number" id="inputCov" inputmode="numeric"></div>
+        </div>
+        <div class="edit-row">
+          <span class="edit-row-label">Marcus</span>
+          <div class="edit-input-wrap"><span class="edit-prefix">£</span><input class="edit-input" type="number" id="inputMarcus" inputmode="numeric"></div>
+        </div>
+        <button class="edit-save" onclick="saveBalances()">Save balances</button>
+        <div class="edit-updated" id="editUpdated"></div>
+      </div>
+    </div>
+
     <div class="debt-meter">
       <div class="debt-top">
         <div>
           <div class="debt-label">Credit Card Debt</div>
-          <div class="debt-amount" id="debtDisplay">£6,700</div>
-          <div class="debt-interest">~£166/mo in interest. Every month it survives costs you.</div>
+          <div class="debt-amount" id="debtTotal">£6,700</div>
+          <div class="debt-interest" id="debtInterest">~£166/mo in interest. Every month it survives costs you.</div>
         </div>
-        <span class="tag tag-red">PRIORITY</span>
       </div>
       <div class="debt-bar-wrap">
         <div class="debt-bar-fill" id="debtBar" style="width:100%"></div>
@@ -189,13 +197,13 @@ section.active { display: block; }
       <div class="debt-cards">
         <div class="debt-card-box">
           <div class="debt-card-name">Amex Gold</div>
-          <div class="debt-card-val" id="goldDisplay">£3,200</div>
-          <div class="debt-card-sub">~29.9% APR · ~£80/mo interest</div>
+          <div id="goldDisplay" class="debt-card-val">£3,200</div>
+          <div class="debt-card-sub">~29.9% APR</div>
         </div>
         <div class="debt-card-box">
           <div class="debt-card-name">Amex Platinum</div>
-          <div class="debt-card-val" id="platDisplay">£3,500</div>
-          <div class="debt-card-sub">~29.9% APR · ~£87/mo interest</div>
+          <div id="platDisplay" class="debt-card-val">£3,500</div>
+          <div class="debt-card-sub">~29.9% APR · pay first</div>
         </div>
       </div>
     </div>
@@ -208,40 +216,40 @@ section.active { display: block; }
       <div class="completion-bar-wrap">
         <div class="completion-bar-fill" id="completionBar" style="width:79%"></div>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
-        <div class="budget-row" style="padding:6px 0;border:none"><span class="budget-name">Coventry now</span><span class="budget-val" style="color:var(--gold)">£51,500</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">
+        <div class="budget-row" style="padding:6px 0;border:none"><span class="budget-name">Coventry</span><span class="budget-val" id="covDisplay" style="color:var(--gold)">£51,500</span></div>
         <div class="budget-row" style="padding:6px 0;border:none"><span class="budget-name">Target</span><span class="budget-val" style="color:var(--text)">£65,000</span></div>
-        <div class="budget-row" style="padding:6px 0;border:none"><span class="budget-name">Shortfall</span><span class="budget-val" style="color:var(--coral)">£13,500</span></div>
-        <div class="budget-row" style="padding:6px 0;border:none"><span class="budget-name">Bonus (25 Jul)</span><span class="budget-val" style="color:var(--green)">~£15,000</span></div>
+        <div class="budget-row" style="padding:6px 0;border:none"><span class="budget-name">Shortfall</span><span class="budget-val" id="shortfallDisplay" style="color:var(--coral)">£13,500</span></div>
+        <div class="budget-row" style="padding:6px 0;border:none"><span class="budget-name">Bonus 25 Jul</span><span class="budget-val" style="color:var(--green)">~£15,000</span></div>
       </div>
     </div>
 
     <div class="daily-grid">
       <div class="daily-box">
-        <div class="daily-box-label">Office Day Budget</div>
+        <div class="daily-box-label">Office Day</div>
         <div class="daily-box-val" style="color:var(--gold)">£12</div>
-        <div class="daily-box-sub">Tue–Thu. Coffee + lunch. Bring water. No extras.</div>
+        <div class="daily-box-sub">Tue–Thu. Coffee + lunch. No extras.</div>
       </div>
       <div class="daily-box">
-        <div class="daily-box-label">WFH Day Budget</div>
+        <div class="daily-box-label">WFH Day</div>
         <div class="daily-box-val" style="color:var(--teal)">£0</div>
-        <div class="daily-box-sub">Mon + Fri. You're at home. Food is covered. Spend nothing.</div>
+        <div class="daily-box-sub">Mon + Fri. You're at home. Spend nothing.</div>
       </div>
       <div class="daily-box">
-        <div class="daily-box-label">Weekend Budget</div>
+        <div class="daily-box-label">Weekend</div>
         <div class="daily-box-val" style="color:var(--amber)">£30</div>
-        <div class="daily-box-sub">Per weekend. One activity. One meal out max. That's it.</div>
+        <div class="daily-box-sub">Per weekend. One activity. One meal max.</div>
       </div>
       <div class="daily-box">
         <div class="daily-box-label">Weekly Total</div>
         <div class="daily-box-val" style="color:var(--text)">£66</div>
-        <div class="daily-box-sub">3×£12 office + £30 weekend. This is your life until September.</div>
+        <div class="daily-box-sub">Until September. That's the deal.</div>
       </div>
     </div>
 
     <div class="highlight red">
       <div class="highlight-label">The Austerity Rule</div>
-      <div class="highlight-text">You have £6,700 of debt at 29.9%. Every £1 you spend on something unnecessary is costing you £1.30 by the time the debt is gone. The flat doesn't care about your social life. September is 107 days away.</div>
+      <div class="highlight-text">£6,700 at 29.9%. Every £1 spent unnecessarily costs £1.30 by the time the debt is gone. The flat doesn't care about your social life. September is the finish line.</div>
     </div>
 
   </div>
@@ -252,7 +260,7 @@ section.active { display: block; }
   <div class="content">
     <div class="highlight">
       <div class="highlight-label">How to read this</div>
-      <div class="highlight-text">Key financial events only. Between these dates: spend nothing you haven't budgeted. Coventry balance is cumulative. Debt figure assumes minimum payments only until bonus lands.</div>
+      <div class="highlight-text">Key financial events only. Between these dates: spend nothing unbudgeted. Every surplus pound goes to Amex Platinum first.</div>
     </div>
     <div id="dayList"></div>
   </div>
@@ -268,12 +276,12 @@ section.active { display: block; }
         <div class="budget-phase-sub">15 Jun → Completion · Living at home</div>
       </div>
       <div class="budget-row"><span class="budget-name">Net pay</span><span class="budget-val" style="color:var(--green)">£5,400</span></div>
-      <div class="budget-row"><span class="budget-name">Parents</span><span class="budget-val">−£1,000</span></div>
-      <div class="budget-row"><span class="budget-name">Amex (both cards)</span><span class="budget-val" style="color:var(--coral)">−£500</span></div>
+      <div class="budget-row"><span class="budget-name">Parents</span><span class="budget-val">−£800</span></div>
+      <div class="budget-row"><span class="budget-name">Amex (both cards)</span><span class="budget-val" style="color:var(--coral)">−£700</span></div>
       <div class="budget-row"><span class="budget-name">Travel (office 3×/wk)</span><span class="budget-val">−£280</span></div>
       <div class="budget-row"><span class="budget-name">Office food (Tue–Thu)</span><span class="budget-val">−£156</span></div>
       <div class="budget-row"><span class="budget-name">Weekend spending</span><span class="budget-val">−£130</span></div>
-      <div class="budget-row"><span class="budget-name">Subs (non-negotiables only)</span><span class="budget-val">−£40</span></div>
+      <div class="budget-row"><span class="budget-name">Subs (essentials only)</span><span class="budget-val">−£40</span></div>
       <div class="budget-row"><span class="budget-name">Groceries</span><span class="budget-val">−£40</span></div>
       <div class="budget-row"><span class="budget-name">Clothes</span><span class="budget-val" style="color:var(--coral)">£0</span></div>
       <div class="budget-row"><span class="budget-name">Dining out</span><span class="budget-val" style="color:var(--coral)">£0</span></div>
@@ -285,14 +293,14 @@ section.active { display: block; }
     <div class="card">
       <div class="card-label">Bonus Deployment — 25 Jul (~£15k net)</div>
       <div class="wealth-item"><span class="wealth-label">Completion fund → Coventry</span><span class="wealth-val" style="color:var(--gold)">£13,500</span></div>
-      <div class="wealth-item"><span class="wealth-label">Amex debt (partial clearance)</span><span class="wealth-val" style="color:var(--coral)">£1,500</span></div>
-      <div class="wealth-item" style="border:none;padding-top:8px"><span class="wealth-label" style="font-size:11px;color:var(--muted)">Remaining Amex after bonus</span><span class="wealth-val" style="font-size:14px;color:var(--coral)">~£4,700</span></div>
+      <div class="wealth-item"><span class="wealth-label">Amex debt (partial)</span><span class="wealth-val" style="color:var(--coral)">£1,500</span></div>
+      <div class="wealth-item" style="border:none;padding-top:8px"><span class="wealth-label" style="font-size:11px;color:var(--muted)">Remaining Amex after bonus</span><span class="wealth-val" style="font-size:14px;color:var(--coral)">~£4,100</span></div>
     </div>
 
     <div class="budget-phase">
       <div class="budget-phase-header">
         <div class="budget-phase-title" style="color:var(--amber)">Phase 2 — Post-Move, Debt Mode</div>
-        <div class="budget-phase-sub">Sep → Cards cleared · SE5, Zone 2</div>
+        <div class="budget-phase-sub">Sep → Cards cleared (~Dec 2026)</div>
       </div>
       <div class="budget-row"><span class="budget-name">Net pay</span><span class="budget-val" style="color:var(--green)">£5,400</span></div>
       <div class="budget-row"><span class="budget-name">Mortgage</span><span class="budget-val" style="color:var(--coral)">−£2,061</span></div>
@@ -304,7 +312,7 @@ section.active { display: block; }
       <div class="budget-row"><span class="budget-name">Groceries</span><span class="budget-val">−£200</span></div>
       <div class="budget-row"><span class="budget-name">Office food (Tue–Thu)</span><span class="budget-val">−£156</span></div>
       <div class="budget-row"><span class="budget-name">Subs/misc</span><span class="budget-val">−£80</span></div>
-      <div class="budget-row"><span class="budget-name">Clothes</span><span class="budget-val" style="color:var(--coral)">£0 — still frozen</span></div>
+      <div class="budget-row"><span class="budget-name">Clothes</span><span class="budget-val" style="color:var(--coral)">£0 — frozen</span></div>
       <div class="budget-row"><span class="budget-name">Amex (clear fast)</span><span class="budget-val" style="color:var(--coral)">−£600</span></div>
       <div class="budget-row"><span class="budget-name">Vanguard ISA</span><span class="budget-val" style="color:var(--coral)">£0 — paused</span></div>
       <div class="budget-row total"><span class="budget-name">Float</span><span class="budget-val" style="color:var(--gold)">£195</span></div>
@@ -313,7 +321,7 @@ section.active { display: block; }
     <div class="budget-phase">
       <div class="budget-phase-header">
         <div class="budget-phase-title" style="color:var(--teal)">Phase 3 — Normal Life</div>
-        <div class="budget-phase-sub">Cards cleared (~Dec 2026) → onwards</div>
+        <div class="budget-phase-sub">Cards cleared → onwards</div>
       </div>
       <div class="budget-row"><span class="budget-name">Net pay</span><span class="budget-val" style="color:var(--green)">£5,400</span></div>
       <div class="budget-row"><span class="budget-name">Mortgage</span><span class="budget-val">−£2,061</span></div>
@@ -331,7 +339,7 @@ section.active { display: block; }
 
     <div class="highlight">
       <div class="highlight-label">January Bonus (~£30k net)</div>
-      <div class="highlight-text">Emergency fund to £9k. Max ISA (£20k) before April 5th. £5k mortgage overpayment. In that order, no exceptions.</div>
+      <div class="highlight-text">Emergency fund to £9k. Max ISA (£20k) before April 5th. £5k mortgage overpayment. That order. No exceptions.</div>
     </div>
 
   </div>
@@ -346,17 +354,17 @@ section.active { display: block; }
       <div class="pension-row"><span class="pension-label">JM Credit Account (17.5%)</span><span class="pension-val" style="color:var(--gold)">£795/mo</span></div>
       <div class="pension-row"><span class="pension-label">JM Investment Account (15%)</span><span class="pension-val" style="color:var(--gold)">£694/mo</span></div>
       <div class="pension-row"><span class="pension-label">ShareMatch (yours + JM 1:1)</span><span class="pension-val" style="color:var(--teal)">£250/mo</span></div>
-      <div class="pension-row"><span class="pension-label" style="color:var(--text);font-weight:600">Total pension building</span><span class="pension-val" style="color:var(--gold);font-size:16px">£2,014/mo</span></div>
+      <div class="pension-row"><span class="pension-label" style="color:var(--text);font-weight:600">Total building</span><span class="pension-val" style="color:var(--gold);font-size:16px">£2,014/mo</span></div>
     </div>
 
     <div class="highlight" style="border-color:var(--teal)">
       <div class="highlight-label" style="color:var(--teal)">October — Switch to Platinum</div>
-      <div class="highlight-text">Costs you £165/month after tax relief. JM gives you £212/month extra. Net gain £47/month + compounding. Do it at the Flexi-Elements window. Non-negotiable.</div>
+      <div class="highlight-text">Costs £165/mo after tax relief. JM gives £212/mo extra. Net gain £47/mo + compounding forever. Flexi-Elements window. Non-negotiable.</div>
     </div>
 
     <div class="card">
-      <div class="card-label">30-Year Wealth Projection</div>
-      <div class="wealth-item"><span class="wealth-label">ISA (£800/mo → £1,186/mo · 8%)</span><span class="wealth-val" style="color:var(--teal)">£1,500,000+</span></div>
+      <div class="card-label">30-Year Projection</div>
+      <div class="wealth-item"><span class="wealth-label">ISA (£800→£1,186/mo · 8%)</span><span class="wealth-val" style="color:var(--teal)">£1,500,000+</span></div>
       <div class="wealth-item"><span class="wealth-label">Pension at 65</span><span class="wealth-val" style="color:var(--gold)">£1,000,000–£1,300,000</span></div>
       <div class="wealth-item"><span class="wealth-label">House equity (£485k · 3%/yr)</span><span class="wealth-val" style="color:var(--blue)">£750,000+</span></div>
       <div class="wealth-total">
@@ -367,11 +375,11 @@ section.active { display: block; }
 
     <div class="card">
       <div class="card-label">Current Assets</div>
-      <div class="wealth-item"><span class="wealth-label">Coventry Cash ISA</span><span class="wealth-val" style="color:var(--gold)">£51,500</span></div>
+      <div class="wealth-item"><span class="wealth-label">Coventry Cash ISA</span><span class="wealth-val" id="wealthCov" style="color:var(--gold)">£51,500</span></div>
       <div class="wealth-item"><span class="wealth-label">Vanguard ISA (LS100%)</span><span class="wealth-val" style="color:var(--teal)">£9,000</span></div>
       <div class="wealth-item"><span class="wealth-label">Freetrade</span><span class="wealth-val" style="color:var(--muted)">£2,400</span></div>
-      <div class="wealth-item"><span class="wealth-label">Marcus (emergency)</span><span class="wealth-val" style="color:var(--blue)">&lt;£1,000</span></div>
-      <div class="wealth-item"><span class="wealth-label">Amex debt</span><span class="wealth-val" style="color:var(--coral)">−£6,700</span></div>
+      <div class="wealth-item"><span class="wealth-label">Marcus</span><span class="wealth-val" id="wealthMarcus" style="color:var(--blue)">£800</span></div>
+      <div class="wealth-item"><span class="wealth-label">Amex debt</span><span class="wealth-val" id="wealthDebt" style="color:var(--coral)">−£6,700</span></div>
       <div class="wealth-item" style="border:none"><span class="wealth-label">JM Pension</span><span class="wealth-val" style="color:var(--gold)">£2,014/mo</span></div>
     </div>
   </div>
@@ -380,50 +388,35 @@ section.active { display: block; }
 <!-- RULES -->
 <section id="rulesSection">
   <div class="content">
-    <div class="card" style="margin-bottom:12px">
-      <div class="card-label">The Rules — Rewritten</div>
-
+    <div class="card">
+      <div class="card-label">The Rules</div>
       <div class="rule-item" style="border-color:var(--coral)">
-        <div class="rule-body">
-          <div class="rule-title">Debt before everything.</div>
-          <div class="rule-sub">No investing while the cards are alive. 29.9% is not beatable in the market. Clear it first, then rebuild.</div>
-        </div>
+        <div class="rule-title">Debt before everything.</div>
+        <div class="rule-sub">29.9% is not beatable in the market. No investing while the cards are alive.</div>
       </div>
       <div class="rule-item">
-        <div class="rule-body">
-          <div class="rule-title">£66 a week. That's your life.</div>
-          <div class="rule-sub">£12 on office days, £0 WFH days, £30 on weekends. Count it. It ends in September.</div>
-        </div>
+        <div class="rule-title">£66 a week. That's your life.</div>
+        <div class="rule-sub">£12 office days, £0 WFH, £30 weekends. It ends in September.</div>
       </div>
       <div class="rule-item">
-        <div class="rule-body">
-          <div class="rule-title">Bonus has one job in July.</div>
-          <div class="rule-sub">£13,500 to Coventry. £1,500 to Amex. Same day it lands. Then nothing changes.</div>
-        </div>
+        <div class="rule-title">Bonus has one job in July.</div>
+        <div class="rule-sub">£13,500 to Coventry. £1,500 to Amex. Same day it lands. Nothing else.</div>
       </div>
       <div class="rule-item">
-        <div class="rule-body">
-          <div class="rule-title">Every pay rise: 50/50.</div>
-          <div class="rule-sub">Half to lifestyle. Half to investments. Once you're debt free. Not before.</div>
-        </div>
+        <div class="rule-title">Every pay rise: 50/50.</div>
+        <div class="rule-sub">Half lifestyle. Half investments. Once debt-free. Not before.</div>
       </div>
       <div class="rule-item">
-        <div class="rule-body">
-          <div class="rule-title">ISA before everything else.</div>
-          <div class="rule-sub">£20,000 annual allowance. Use it every year before April 5th. January bonus does this.</div>
-        </div>
+        <div class="rule-title">ISA before everything else.</div>
+        <div class="rule-sub">£20,000 annual allowance before April 5th. January bonus does this.</div>
       </div>
       <div class="rule-item">
-        <div class="rule-body">
-          <div class="rule-title">October. Platinum. No excuses.</div>
-          <div class="rule-sub">Flexi-Elements window. Switch JMEPS Gold to Platinum. Free money until you do.</div>
-        </div>
+        <div class="rule-title">October. Platinum. No excuses.</div>
+        <div class="rule-sub">Flexi-Elements window. Switch JMEPS Gold to Platinum. Free money until you do.</div>
       </div>
       <div class="rule-item">
-        <div class="rule-body">
-          <div class="rule-title">Never sell in a downturn.</div>
-          <div class="rule-sub">Keep buying when markets fall. The people who panic-sell lock in losses and miss the recovery.</div>
-        </div>
+        <div class="rule-title">Never sell in a downturn.</div>
+        <div class="rule-sub">Keep buying when markets fall. Panic-sellers lock in losses and miss the recovery.</div>
       </div>
     </div>
   </div>
@@ -454,174 +447,147 @@ section.active { display: block; }
 </nav>
 
 <script>
-// ── DAYS ──────────────────────────────────────────────────────────────────────
-function updateDays(){
+// ── DEFAULTS ──────────────────────────────────────────────────────────────────
+const DEFAULTS = { gold: 3200, plat: 3500, cov: 51500, marcus: 800 };
+const DEBT_START = 6700;
+const COV_TARGET = 65000;
+
+// ── STORAGE ───────────────────────────────────────────────────────────────────
+function load(k, d) { try { const v = localStorage.getItem(k); return v !== null ? JSON.parse(v) : d; } catch(e) { return d; } }
+function save(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch(e) {} }
+
+let state = load('fp2_state', { ...DEFAULTS, updatedAt: null });
+
+// ── EDIT PANEL ────────────────────────────────────────────────────────────────
+function toggleEdit() {
+  const f = document.getElementById('editFields');
+  const open = f.classList.toggle('open');
+  if (open) {
+    document.getElementById('inputGold').value = state.gold;
+    document.getElementById('inputPlat').value = state.plat;
+    document.getElementById('inputCov').value = state.cov;
+    document.getElementById('inputMarcus').value = state.marcus;
+  }
+}
+
+function saveBalances() {
+  const gold = parseFloat(document.getElementById('inputGold').value) || 0;
+  const plat = parseFloat(document.getElementById('inputPlat').value) || 0;
+  const cov = parseFloat(document.getElementById('inputCov').value) || 0;
+  const marcus = parseFloat(document.getElementById('inputMarcus').value) || 0;
+  state = { gold, plat, cov, marcus, updatedAt: new Date().toISOString() };
+  save('fp2_state', state);
+  document.getElementById('editFields').classList.remove('open');
+  const now = new Date();
+  document.getElementById('editUpdated').textContent = 'Updated ' + now.toLocaleDateString('en-GB', {day:'numeric',month:'short'}) + ' at ' + now.toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit'});
+  renderBalances();
+}
+
+// ── RENDER ────────────────────────────────────────────────────────────────────
+function fmt(n) {
+  if (n <= 0) return '£0';
+  return '£' + Math.round(n).toLocaleString('en-GB');
+}
+
+function renderBalances() {
+  const { gold, plat, cov, marcus } = state;
+  const total = gold + plat;
+  const interest = Math.round(total * 0.299 / 12);
+
+  // Debt meter
+  document.getElementById('debtTotal').textContent = fmt(total);
+  document.getElementById('debtInterest').textContent = total > 0
+    ? `~${fmt(interest)}/mo in interest. Every month it survives costs you.`
+    : 'Cleared. Cards dead. Investing resumes.';
+
+  const pct = total > 0 ? Math.min(100, (total / DEBT_START) * 100) : 0;
+  document.getElementById('debtBar').style.width = pct + '%';
+
+  const gEl = document.getElementById('goldDisplay');
+  const pEl = document.getElementById('platDisplay');
+  if (gold <= 0) { gEl.className = 'debt-cleared'; gEl.textContent = 'CLEARED ✓'; }
+  else { gEl.className = 'debt-card-val'; gEl.textContent = fmt(gold); }
+  if (plat <= 0) { pEl.className = 'debt-cleared'; pEl.textContent = 'CLEARED ✓'; }
+  else { pEl.className = 'debt-card-val'; pEl.textContent = fmt(plat); }
+
+  // Completion meter
+  const covPct = Math.min(100, Math.round((cov / COV_TARGET) * 100));
+  document.getElementById('completionPct').textContent = covPct + '%';
+  document.getElementById('completionBar').style.width = covPct + '%';
+  document.getElementById('covDisplay').textContent = fmt(cov);
+  const shortfall = Math.max(0, COV_TARGET - cov);
+  document.getElementById('shortfallDisplay').textContent = shortfall > 0 ? fmt(shortfall) : '£0 ✓';
+  document.getElementById('shortfallDisplay').style.color = shortfall > 0 ? 'var(--coral)' : 'var(--green)';
+
+  // Wealth tab
+  document.getElementById('wealthCov').textContent = fmt(cov);
+  document.getElementById('wealthMarcus').textContent = fmt(marcus);
+  document.getElementById('wealthDebt').textContent = total > 0 ? '−' + fmt(total) : '£0 — CLEARED';
+  document.getElementById('wealthDebt').style.color = total > 0 ? 'var(--coral)' : 'var(--green)';
+
+  // Last updated
+  if (state.updatedAt) {
+    const d = new Date(state.updatedAt);
+    document.getElementById('editUpdated').textContent = 'Updated ' + d.toLocaleDateString('en-GB', {day:'numeric',month:'short'}) + ' at ' + d.toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit'});
+  }
+}
+
+// ── DAY BY DAY ────────────────────────────────────────────────────────────────
+const DAYS = [
+  { date:'15 Jun 2026 — Today', type:'warning', title:'Austerity starts now.', sub:'Pause Vanguard. Pause Marcus. Redirect £700/mo to Amex — hit Platinum first. Set £12/day cap for office days mentally.', balance:'Coventry: £51,500 · Amex: £6,700' },
+  { date:'16–20 Jun', type:'', title:'First full austerity week.', sub:'Mon + Fri WFH: spend £0. Tue–Thu office: £12/day max. Pack lunch if you can. No sit-down coffees.', balance:'Budget: £12 office / £0 WFH / £30 weekend' },
+  { date:'21 Jun — Payday', type:'payday', title:'June salary lands: ~£5,400', sub:'→ £800 to parents. → £700 to Amex (hit Platinum harder — larger balance, clear it first). Everything else is austerity float.', balance:'Coventry: £51,500 · Amex: ~£6,300 est.' },
+  { date:'22 Jun', type:'debt', title:'Amex payments hit.', sub:'Confirm both cards have received payment. Check interest charges on each statement — this is what you\'re fighting against every single month.', balance:'Platinum first. Always.' },
+  { date:'30 Jun — Month end', type:'', title:'June check-in.', sub:'Any current account surplus above your float? Send it to Amex Platinum today. Do not let surplus sit idle at 0% while cards run at 29.9%.', balance:'Surplus → Amex Platinum, same day' },
+  { date:'1–20 Jul', type:'', title:'Three more austerity weeks.', sub:'Same routine. £12 office days. £0 WFH. £30 weekends. Bonus is incoming. Hold the line.', balance:'Coventry: £51,500 · Amex: ~£5,500 est.' },
+  { date:'21 Jul — Payday', type:'payday', title:'July salary: ~£5,400', sub:'→ £800 parents. → £700 Amex. Everything else holds. Bonus lands in 4 days. Do not pre-spend it.', balance:'Coventry: £51,500 · Amex: ~£5,000 est.' },
+  { date:'25 Jul — BONUS DAY', type:'bonus', title:'~£15,000 bonus lands.', sub:'Same day, no delay: → £13,500 to Coventry. → £1,500 to Amex Platinum. That\'s it. The flat is the celebration. Nothing else changes.', balance:'Coventry: £65,000 ✓ · Amex: ~£3,500 est.' },
+  { date:'26 Jul', type:'', title:'Confirm Coventry: £65,000.', sub:'Log in. Verify the balance. Screenshot it. Completion is funded. The rest is just time and discipline.', balance:'Target hit. Austerity continues.' },
+  { date:'21 Aug — Payday', type:'payday', title:'August salary: ~£5,400', sub:'→ £800 parents (last full month). → £700 Amex. Chase solicitor for exact completion date. Confirm buildings insurance is in place.', balance:'Coventry: £65,000 · Amex: ~£2,700 est.' },
+  { date:'Sep 2026 — COMPLETION', type:'completion', title:'Completion. You own the flat.', sub:'Solicitor draws ~£65k from Coventry. Mortgage begins at £2,061/mo. Same day: parents drop to £500/mo. Set income protection insurance this week. Amex payments increase to £600/mo.', balance:'Coventry: ~£0 · Amex: ~£2,500 remaining · Mortgage begins' },
+  { date:'Sep–Nov 2026', type:'debt', title:'Post-move debt clearance.', sub:'Tight but manageable at £195 float. £600/mo to Amex. Every surplus pound goes to the cards. Target: fully cleared by December.', balance:'Amex clears ~Dec 2026' },
+  { date:'Oct 2026 — Flexi-Elements', type:'warning', title:'Switch JMEPS Gold → Platinum.', sub:'Window opens. Do it immediately. Costs £165/mo after tax relief. JM gives £212/mo extra. Net gain £47/mo + compounding. Set a reminder today.', balance:'Non-negotiable. Do not miss this window.' },
+  { date:'Dec 2026', type:'completion', title:'Cards cleared. Austerity ends.', sub:'Both Amex cards at £0. Vanguard restarts at £800/mo. You can buy something for the flat. You\'ve earned it. This chapter is closed.', balance:'Phase 3: normal life begins.' },
+  { date:'Jan 2027 — Bonus', type:'bonus', title:'~£30k bonus lands.', sub:'→ Emergency fund to £9k (Marcus). → £20k ISA before April 5th. → £5k mortgage overpayment. That order. Nothing else.', balance:'Net worth reset. The machine is running.' },
+];
+
+function renderDays() {
+  let html = '';
+  DAYS.forEach(d => {
+    html += `<div class="day-entry ${d.type}">
+      <div class="day-date">${d.date}</div>
+      <div class="day-title">${d.title}</div>
+      <div class="day-sub">${d.sub}</div>
+      <div class="day-balance">${d.balance}</div>
+    </div>`;
+  });
+  document.getElementById('dayList').innerHTML = html;
+}
+
+// ── NAV ───────────────────────────────────────────────────────────────────────
+function showSection(s) {
+  ['overview','day','budget','wealth','rules'].forEach(sec => {
+    document.getElementById(sec+'Section').classList.remove('active');
+    const btn = document.getElementById('nav'+sec.charAt(0).toUpperCase()+sec.slice(1));
+    if (btn) btn.classList.remove('active');
+  });
+  document.getElementById(s+'Section').classList.add('active');
+  const activeBtn = document.getElementById('nav'+s.charAt(0).toUpperCase()+s.slice(1));
+  if (activeBtn) activeBtn.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ── DAYS COUNTER ──────────────────────────────────────────────────────────────
+function updateDays() {
   const target = new Date('2026-09-01');
   const now = new Date();
   const diff = Math.ceil((target - now) / (1000*60*60*24));
   document.getElementById('daysLeft').textContent = diff > 0 ? diff : '0';
 }
 
-// ── DAY BY DAY DATA ──────────────────────────────────────────────────────────
-const DAYS = [
-  {
-    date: '15 Jun 2026 — Today',
-    type: 'warning',
-    title: 'Austerity starts now.',
-    sub: 'Cancel every non-essential standing order. Vanguard: pause. Marcus: pause. Redirect £500/mo to Amex. Set a £12/day cap on office days in your head.',
-    balance: 'Coventry: £51,500 · Amex: £6,700'
-  },
-  {
-    date: '16–20 Jun — Mon to Fri',
-    type: '',
-    title: 'First full austerity week.',
-    sub: 'Mon + Fri: WFH, spend £0. Tue–Thu: office, £12/day max. Pack lunch if you can. No coffee shop sit-downs.',
-    balance: 'Daily budget: £12 office / £0 WFH'
-  },
-  {
-    date: '21 Jun — Weekend',
-    type: '',
-    title: '£30 weekend budget. Not £31.',
-    sub: 'One thing. One meal if you want it. Track it on your phone notes. This is the discipline.',
-    balance: 'Weekend cap: £30'
-  },
-  {
-    date: '21 Jun — Payday',
-    type: 'payday',
-    title: 'June salary lands: ~£5,400',
-    sub: '→ £1,000 to parents. → £500 to Amex (split as you like across both cards, hit Platinum harder). → £280 travel already covered. Rest sits in current account as your austerity float.',
-    balance: 'Coventry: £51,500 · Amex: ~£6,367 (after interest + payment)'
-  },
-  {
-    date: '22 Jun',
-    type: 'debt',
-    title: 'Amex payment hits.',
-    sub: 'Make sure £500 has cleared to the cards. Check both balances. Watch the interest charges — this is what you\'re fighting.',
-    balance: 'Amex Platinum first. Always pay the higher-rate card more.'
-  },
-  {
-    date: '30 Jun — Month end',
-    type: '',
-    title: 'June check-in.',
-    sub: 'Did you spend under £66 this week? How much is left in your current account? Anything surplus goes to Amex today — don\'t let it sit.',
-    balance: 'Surplus → Amex, same day'
-  },
-  {
-    date: '1–18 Jul',
-    type: '',
-    title: 'Three more austerity weeks.',
-    sub: 'Same routine. £12 office days. £0 WFH. £30 weekends. The bonus is 3–4 weeks away. Hold the line.',
-    balance: 'Coventry: £51,500 · Amex: ~£6,000 est.'
-  },
-  {
-    date: '21 Jul — Payday',
-    type: 'payday',
-    title: 'July salary lands: ~£5,400',
-    sub: '→ £1,000 parents. → £500 Amex. Everything else holds. Bonus is 4 days away. Do not pre-spend it.',
-    balance: 'Coventry: £51,500 · Amex: ~£5,600 est.'
-  },
-  {
-    date: '25 Jul — BONUS DAY',
-    type: 'bonus',
-    title: '~£15,000 bonus lands.',
-    sub: 'Same day, no delay: → £13,500 to Coventry. → £1,500 to Amex. That\'s it. Do not look at anything else. Do not celebrate with a purchase. The flat is the celebration.',
-    balance: 'Coventry: £65,000 ✓ · Amex: ~£4,100 est.'
-  },
-  {
-    date: '26 Jul',
-    type: '',
-    title: 'Confirm Coventry balance.',
-    sub: 'Log in. Verify £65,000 is there. Screenshot it. You\'ve funded completion. The rest is just time.',
-    balance: 'Target hit. Austerity continues until cards clear.'
-  },
-  {
-    date: '28 Jul — Month end',
-    type: '',
-    title: 'July check-in.',
-    sub: 'Any current account surplus after parents + Amex payment? Send it to Amex. Every pound now saves you 29.9% per year.',
-    balance: 'Amex: ~£4,100 · still ~3–4 months of post-move payments to clear'
-  },
-  {
-    date: '1–20 Aug',
-    type: '',
-    title: 'Final pre-move weeks.',
-    sub: 'Chase solicitor for completion date. Confirm buildings insurance is in place for day of completion. Don\'t buy anything for the flat yet — wait until you\'re in.',
-    balance: 'Coventry: £65,000 ready · Amex: ~£3,600 est.'
-  },
-  {
-    date: '21 Aug — Payday',
-    type: 'payday',
-    title: 'August salary lands: ~£5,400',
-    sub: '→ £1,000 parents (last full payment). → £500 Amex. Prepare for completion. Make sure solicitor has bank details for transfer.',
-    balance: 'Coventry: £65,000 · Amex: ~£3,200 est.'
-  },
-  {
-    date: 'Sep 2026 — COMPLETION',
-    type: 'completion',
-    title: 'Completion. You own the flat.',
-    sub: 'Solicitor draws £65,000 from Coventry. Mortgage begins. Same day: → Parents drop to £500/mo. → Set income protection insurance (this week). → Amex payments increase to £600/mo. → Vanguard stays paused until cards clear.',
-    balance: 'Coventry: ~£0 · Amex: ~£3,000 remaining · Mortgage: £2,061/mo begins'
-  },
-  {
-    date: 'Sep–Nov 2026',
-    type: 'debt',
-    title: 'Post-move debt clearance mode.',
-    sub: 'Budget is tight but workable at £195 float. £600/mo to Amex. Any current account surplus goes to the cards. Target: cards cleared by December.',
-    balance: 'Amex clears ~Dec 2026 at £600/mo'
-  },
-  {
-    date: 'Oct 2026 — Flexi-Elements',
-    type: 'warning',
-    title: 'Switch JMEPS Gold → Platinum.',
-    sub: 'Flexi-Elements window opens. Do it immediately. Costs £165/mo after tax relief, JM gives £212/mo extra. Net gain £47/mo + compounding. Non-negotiable.',
-    balance: 'Set reminder now. Do not miss this window.'
-  },
-  {
-    date: 'Dec 2026',
-    type: 'completion',
-    title: 'Cards cleared. Austerity ends.',
-    sub: 'Amex Gold and Platinum: both at £0. Cut the spending limits if it helps mentally. Vanguard restarts at £800/mo. You can buy something for the flat. You\'ve earned it.',
-    balance: 'Phase 3 begins. Normal life resumes.'
-  },
-  {
-    date: 'Jan 2027 — Bonus',
-    type: 'bonus',
-    title: '~£30k bonus lands.',
-    sub: '→ £9,000 emergency fund (Marcus). → £20,000 ISA before April 5th. → £5,000 mortgage overpayment. In that order. Nothing else.',
-    balance: 'Net worth jump. This is the reset.'
-  }
-];
-
-function renderDays(){
-  const typeClass = { payday:'payday', bonus:'bonus', completion:'completion', debt:'debt', warning:'warning', '':'' };
-  let html = '';
-  DAYS.forEach(d => {
-    html += `
-      <div class="day-entry ${typeClass[d.type] || ''}">
-        <div class="day-date">${d.date}</div>
-        <div class="day-title">${d.title}</div>
-        <div class="day-sub">${d.sub}</div>
-        <div class="day-balance" style="color:var(--muted)">${d.balance}</div>
-      </div>`;
-  });
-  document.getElementById('dayList').innerHTML = html;
-}
-
-// ── NAV ───────────────────────────────────────────────────────────────────────
-function showSection(s){
-  ['overview','day','budget','wealth','rules'].forEach(sec => {
-    document.getElementById(sec+'Section').classList.remove('active');
-    const btn = document.getElementById('nav'+sec.charAt(0).toUpperCase()+sec.slice(1));
-    if(btn) btn.classList.remove('active');
-  });
-  document.getElementById(s+'Section').classList.add('active');
-  const activeBtn = document.getElementById('nav'+s.charAt(0).toUpperCase()+s.slice(1));
-  if(activeBtn) activeBtn.classList.add('active');
-  window.scrollTo(0,0);
-}
-
 // ── INIT ──────────────────────────────────────────────────────────────────────
 updateDays();
+renderBalances();
 renderDays();
 </script>
 </body>
