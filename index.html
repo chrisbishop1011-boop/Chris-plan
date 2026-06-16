@@ -192,10 +192,10 @@ section.active { display: block; }
   <div class="content">
     <div class="card" style="border-color:var(--coral)30">
       <div class="card-label" style="color:var(--coral)">Total Debt Remaining</div>
-      <div class="debt-big" id="trackerDebtTotal">£4,900</div>
-      <div class="debt-sub" id="trackerDebtSub">~£121/mo in interest</div>
-      <div class="debt-bar-wrap"><div class="debt-bar-fill" id="trackerBar" style="width:73%"></div></div>
-      <div class="debt-bar-labels"><span>£0 cleared</span><span id="trackerBarPaid">Paid: £1,800</span><span>£6,700 start</span></div>
+      <div class="debt-big" id="trackerDebtTotal">£6,700</div>
+      <div class="debt-sub" id="trackerDebtSub">~£166/mo in interest</div>
+      <div class="debt-bar-wrap"><div class="debt-bar-fill" id="trackerBar" style="width:100%"></div></div>
+      <div class="debt-bar-labels"><span>£0 cleared</span><span id="trackerBarPaid">Paid: £0</span><span>£6,700 start</span></div>
       <div class="debt-cards-grid">
         <div class="debt-mini">
           <div class="debt-mini-label">Amex Gold</div>
@@ -204,7 +204,7 @@ section.active { display: block; }
         </div>
         <div class="debt-mini">
           <div class="debt-mini-label">Amex Platinum</div>
-          <div class="debt-mini-val" id="trackerPlat" style="color:var(--coral)">£1,700</div>
+          <div class="debt-mini-val" id="trackerPlat" style="color:var(--coral)">£3,500</div>
           <div class="debt-mini-sub">Kill this first</div>
         </div>
       </div>
@@ -213,8 +213,8 @@ section.active { display: block; }
     <div class="card">
       <div class="card-label">Paydown Stats</div>
       <div class="stat-row"><span class="stat-label">Started with</span><span class="stat-val">£6,700</span></div>
-      <div class="stat-row"><span class="stat-label">Total paid down</span><span class="stat-val" id="statPaid" style="color:var(--green)">£1,800</span></div>
-      <div class="stat-row"><span class="stat-label">Remaining</span><span class="stat-val" id="statRemaining" style="color:var(--coral)">£4,900</span></div>
+      <div class="stat-row"><span class="stat-label">Total paid down</span><span class="stat-val" id="statPaid" style="color:var(--green)">£0</span></div>
+      <div class="stat-row"><span class="stat-label">Remaining</span><span class="stat-val" id="statRemaining" style="color:var(--coral)">£6,700</span></div>
       <div class="stat-row"><span class="stat-label">At current pace, clear by</span><span class="stat-val" id="statClearDate" style="color:var(--gold)">—</span></div>
     </div>
 
@@ -358,7 +358,7 @@ section.active { display: block; }
 function ls(k,d){try{const v=localStorage.getItem(k);return v!==null?JSON.parse(v):d;}catch(e){return d;}}
 function lss(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
 
-let balances = ls('cb_bal3', {gold:3200, plat:1700, cov:51500});
+let balances = ls('cb_bal3', {gold:3200, plat:3500, cov:51500});
 let checkins = ls('cb_chk3', {});
 let actionTicks = ls('cb_acts3', {});
 let formState = {withinBudget:null};
@@ -461,7 +461,7 @@ function renderToday() {
         <div class="checkin-date">${fmtDate(key)} · ${dayLabel}</div>
         <div style="text-align:center;padding:8px 0 16px">
           <div style="font-size:28px;margin-bottom:6px">${existing.withinBudget?'✓':'⚠'}</div>
-          <div class="already-done-title">${existing.withinBudget?'On track.':'Over budget.'}</div>
+          <div class="already-done-title" style="color:${existing.withinBudget?'var(--green)':'var(--coral)'}">${existing.withinBudget?'On track.':'Over budget.'}</div>
           <div class="already-done-sub">
             Spent: ${fmt(spentTotal)}${existing.amexPayment>0?' · Amex: '+fmt(existing.amexPayment):''}
             ${existing.notes?'<br><em style="margin-top:4px;display:block">"'+existing.notes+'"</em>':''}
@@ -516,6 +516,14 @@ function renderToday() {
 
 function setYN(val){formState.withinBudget=val;renderToday();}
 
+function spendTotal(){
+  const f=parseFloat(document.getElementById('spendFood')?.value)||0;
+  const t=parseFloat(document.getElementById('spendTransport')?.value)||0;
+  const s=parseFloat(document.getElementById('spendSocial')?.value)||0;
+  const o=parseFloat(document.getElementById('spendOther')?.value)||0;
+  return f+t+s+o;
+}
+
 function updateTotal(){
   const f=parseFloat(document.getElementById('spendFood')?.value)||0;
   const t=parseFloat(document.getElementById('spendTransport')?.value)||0;
@@ -534,7 +542,11 @@ function submitCheckin(){
   const amexPayment=parseFloat(document.getElementById('spendAmex')?.value)||0;
   const notes=document.getElementById('spendNotes')?.value||'';
   const key=todayKey();
-  checkins[key]={withinBudget:formState.withinBudget,food,transport,social,other,amexPayment,notes,dayType:dayType(),savedAt:new Date().toISOString()};
+  const totalSpend=food+transport+social+other;
+  const budget=dayBudget();
+  // withinBudget is based on spend only — Amex payments never count against budget
+  const withinBudget = formState.withinBudget !== null ? formState.withinBudget : totalSpend <= budget;
+  checkins[key]={withinBudget,food,transport,social,other,amexPayment,notes,dayType:dayType(),savedAt:new Date().toISOString()};
   lss('cb_chk3',checkins);
   formState={withinBudget:null};
   if(amexPayment>0){
@@ -718,3 +730,4 @@ if(!checkins[todayKey()])document.getElementById('todayDot').style.display='bloc
 </script>
 </body>
 </html>
+
